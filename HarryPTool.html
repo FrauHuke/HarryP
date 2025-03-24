@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mittelwert Rechner</title>
+</head>
+<body>
+    <h1>Mittelwert Rechner</h1>
+    <p>Gib deine Zahl ein und klicke auf "Hinzufügen" (mehrere Teilnehmer können gleichzeitig ihre Zahl eingeben):</p>
+    
+    <input type="number" id="zahlInput" placeholder="Zahl eingeben">
+    <button onclick="zahlHinzufuegen()">Hinzufügen</button>
+    
+    <h2>Eingegebene Zahlen:</h2>
+    <ul id="zahlenListe"></ul>
+    
+    <h3>Mittelwert: <span id="mittelwert">0</span></h3>
+
+    <script>
+        let zahlen = [];
+
+        function zahlHinzufuegen() {
+            let zahl = document.getElementById("zahlInput").value;
+            if (zahl !== "") {
+                zahlen.push(Number(zahl));
+                document.getElementById("zahlInput").value = "";
+                updateListe();
+                berechneMittelwert();
+            }
+        }
+
+        function updateListe() {
+            const liste = document.getElementById("zahlenListe");
+            liste.innerHTML = "";
+            zahlen.forEach(function(zahl) {
+                let li = document.createElement("li");
+                li.textContent = zahl;
+                liste.appendChild(li);
+            });
+        }
+
+        function berechneMittelwert() {
+            let summe = zahlen.reduce((acc, val) => acc + val, 0);
+            let mittelwert = summe / zahlen.length;
+            document.getElementById("mittelwert").textContent = mittelwert.toFixed(2);
+        }
+    </script>
+</body>
+</html>
